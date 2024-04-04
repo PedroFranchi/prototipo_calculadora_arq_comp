@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="background-color:  #6A5ACD; display: flex; justify-content: center; align-items: center; gap: 15px;">
+   
+    <div
+        style="box-shadow: 2px 9px 50px 1px rgb(40, 40, 249); margin-top: 100px; background-color: white; height: 400px; width: 420px; border: solid 2px; border-radius: 16px;">
+
+        <div style="display: flex; border-bottom: solid 2px; justify-content: center; align-items: center;">
+            <h1>Zora's Machine</h1>
+        </div>
+
+        <br><br>
+
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <input id="input_valor_converter" type="text"
+                style="width: 200px; display: flex; align-items: center; border-radius: 8px; border-bottom: 4px; height: 25px;"
+                placeholder="Digite o valor que quer converter">
+
+            <select id="select_base"
+                style="color: white; background-color: black; border-radius: 8px; border-bottom: 4px; height: 25px;">
+                <option value="10">Decimal</option>
+                <option value="16">Hexadecimal</option>
+                <option value="8">Octal</option>
+                <option value="2">Binário</option>
+            </select>
+        </div>
+        <br><br>
+
+        <center>
+            <button onclick="converter()" style="border: solid 2px; border-radius: 8px;">
+                Converter
+            </button> <br>
+            <br>
+            <input type="checkbox" value="octal"><b>Octal</b>
+            <br><br>
+            <input type="checkbox" value="hexadecimal"><b>Hexadecimal</b>
+            <br><br>
+            <input type="checkbox" value="binario"><b>Binário</b>
+            <br><br>
+            <input type="checkbox" value="decimal"><b>Decimal</b>
+            <br><br>
+        </center>
+    </div>
+    <div id="div_resultados"
+        style="font-size: xx-large; display: none; background-color: white; border-radius: 16px; width: 400px; height: 400px; justify-content: center; align-items: center; margin-top: 100px;">
+    </div>
+</body>
+
+<script>
+    function converter() {
+        let valor = input_valor_converter.value
+        let base = select_base.value
+        let valorConverter = parseInt(valor, base)
+
+        if (base === '8' && valor.includes('8')) {
+            div_resultados.style.display = 'flex'
+            div_resultados.innerHTML = "Não é possível usar os números '8' ou '9' na base octal."
+        } else {
+            let octalChecked = document.querySelector('input[value="octal"]').checked
+            let hexadecimalChecked = document.querySelector('input[value="hexadecimal"]').checked
+            let binarioChecked = document.querySelector('input[value="binario"]').checked
+            let decimalChecked = document.querySelector('input[value="decimal"]').checked
+
+            let resultados = ''
+
+            if (octalChecked) {
+                resultados += `Octal: ${valorConverter.toString(8)} <br>`
+            }
+            if (hexadecimalChecked) {
+                resultados += `Hexadecimal: ${valorConverter.toString(16).toUpperCase()}<br>`
+            }
+            if (binarioChecked) {
+                resultados += `Binário: ${valorConverter.toString(2)}<br>`
+            }
+            if (decimalChecked) {
+                resultados += `Decimal: ${valorConverter.toString(10)}<br>`
+            }
+
+            if (resultados) {
+                div_resultados.style.display = 'flex'
+                div_resultados.innerHTML = resultados
+            } else {
+                div_resultados.style.display = 'flex'
+            }
+        }
+    }
+</script>
+
+</html>
